@@ -1,0 +1,121 @@
+body, nav, p, ul, li, main, footer, div, section, article, a, button
+{
+    padding: 0;
+    margin: 0;
+    font-family: "Oswald", sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+}
+h1, h2, h3, h4 {
+  font-family: "Mr Dafoe", sans-serif;
+}
+a, .nav-link {
+  padding-left: .25em;
+  padding-right: .25em;
+  padding-bottom: .25em;
+  border-radius: 5px;
+  color: #221A11;
+  transition: all ease-in-out 1s;
+}
+a:hover,
+a:focus,
+.nav-link:hover,
+.nav-link:focus,
+.nav-link.active:hover,
+.nav-link.active:focus {
+  color: white;
+  background-color: #221A11;
+}
+a.active, .nav-link.active {
+  outline: #E59700 solid 2px;
+}
+.dropdown-menu .active {
+  outline: none;
+  background-color: #E59700;
+}
+
+nav .dropdown-menu .dd-heading {
+  padding-left: 1em;
+}
+header {
+    background-color: #84603f;
+    background-image: url(../img/mud-pool.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: black;
+    text-align: center;
+    transition: all ease-in-out 1s;
+}
+header div {
+  padding: 10em;
+}
+header div p,
+header div h1 {
+  padding: .5em;
+  border-radius: 5px;
+  background-color: white;
+  background-color: rgba(255,255,255,0.75);
+}
+main {
+  z-index: 1;
+  color: #221A11;
+  background-color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/dotnoise-light-grey.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+
+  background-image: url("https://www.transparenttextures.com/patterns/egg-shell.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+
+  background-image: url("https://www.transparenttextures.com/patterns/subtle-white-feathers.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+main section {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  background-color: white;
+}
+
+footer {
+    color: white;
+    position: relative;
+    padding: 1em;
+    background-color: #221A11;
+    text-align: center;
+    transition: all ease-in-out 1s;
+}
+footer p a {
+    color: white;
+    transition: all ease-in-out 1s;
+}
+footer p a:hover,
+footer p a:focus {
+    color: #3F8460;
+}
+
+@media screen and (min-width: 768px)
+{
+  main section {
+    padding-bottom: 2em;
+  }
+  footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+  }
+}
+.triadicColors {
+  color: #84603f /*brown*/;
+  color: #3F8460 /*green*/;
+  color: #603F84 /*purple*/;
+}
+.darkShades {
+  color: #2B2015;
+  color: #221A11;
+  color: #1B150E;
+  color: #16110B;
+}
+.outlinesColors {
+  color: #E59700 /*yellowish brown*/
+}

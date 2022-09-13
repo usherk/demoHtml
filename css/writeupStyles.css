@@ -1,0 +1,48 @@
+/*******    Writeup Styles       **********/
+#writeup section {
+  padding: 2em;
+}
+#writeup article {
+  max-width: 75ch;
+  margin: 0 auto;
+}
+#writeup h2 {
+  margin-top: 1em;
+}
+#writeup .levelInfo h2:first-child {
+  margin-top: 0;
+}
+#writeup .levelInfo li {
+  margin-left: 1.5em;
+}
+#writeup .commands ul {
+  list-style-type: none;
+  margin-bottom: .5em;
+}
+#writeup .commandList li {
+  display: inline-block;
+}
+#writeup .commands p {
+  text-align: left;
+}
+#writeup .smallText a {
+  font-size: 1em;
+}
+#writeup .smallText {
+  font-size: .75em;
+}
+#writeup table thead  {
+  background-color: #211A11!important;
+  color: white;
+}
+#writeup code {
+  display: block;
+  background-color: black;
+  color: #E59700;
+  padding: .5em;
+}
+@media screen and (min-width: 768px) {
+  #writeup section {
+    padding-bottom: 5em;
+  }
+}
