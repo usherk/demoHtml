@@ -27,8 +27,8 @@
               <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Write-ups</a>
               <ul class="dropdown-menu">
                 <li><span class="dd-heading">Bandit</span><hr class="dropdown-divider"></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel0.html">Level 0</a></li>
-                <li><a class="dropdown-item" href="banditlevel1.html">Level 1</a></li>
+                <li><a class="dropdown-item" href="banditlevel0.html">Level 0</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel1.html">Level 1</a></li>
               </ul>
             </li>
           </ul>
@@ -37,7 +37,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 0</h1>
+        <h1>Over the Wire - Bandit Level 1</h1>
       </div>
     </header>
     <main>
@@ -47,14 +47,14 @@
             <h2>Level Information</h2>
             <ul>
               <li>Host Name: bandit.labs.overthewire.org</li>
-              <li>Username: bandit0</li>
-              <li>Password: bandit0</li>
+              <li>Username: bandit1</li>
+              <li>Password: <span class="blur">boJ9jbbUNNfktd78OOpsqOltutMc3MY1</span></li>
               <li>Port Number: 2220</li>
             </ul>
           </article>
           <article class="levelGoal">
             <h2>Level Goal</h2>
-            <p>The password for the next level is stored in a file called readme located in the home directory. Use this password to log into bandit1 using SSH. Whenever you find a password for a level, use SSH (on port 2220) to log into that level and continue the game.</p>
+            <p>The password for the next level is stored in a file called - located in the home directory</p>
           </article>
           <article class="commands">
             <h2>Commands you may need to solve this level</h2>
@@ -110,31 +110,37 @@
               Step one would be to locate the home directory. The home directory is usually signified with a &#126;&#36; and is usually the directory you start in when logging into a Linux box. So it appears we are in the home directory.
             </li>
             <li>
-              Step two, Now we need to search the directory for a file called readme.  Using the ‘ls’ command we see a list of all the files and folders in the home directory. The ‘ls’ command shows that there is only 1 file and it is the file we are looking for.
+              Step two, Now we need to search the directory for a file called - (that is a dash).  Using the ‘ls’ command we see a list of all the files and folders in the home directory. The ‘ls’ command shows that there is only 1 file and it is the file we are looking for.
               <code>
-                bandit0@bandit:&#126;&#36; ls <br />
-                readme
+                bandit1@bandit:&#126;&#36; ls <br />
+                -
               </code>
             </li>
             <li>
-              Step there, we need to open or read the readme. There are several commands that can be used; the quickest and easiest would be to use ‘cat’ to read the file.
+              Step three, we need to open or read the - file. Now dash files are a little different and you can’t just type in cat - to open the file. The dash is usually used for arguments or flags, that is why just a dash doesn’t work. So to open this file you need to type out the whole file path so Linux knows it is a file that you are looking for. Lets use cat to read the file, ‘cat ./-’.
               <code>
-                bandit0@bandit:&#126;&#36; cat readme <br />
-                boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+                bandit1@bandit:&#126;&#36; cat ./- <br />
+                <span class="blur">CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9</blur>
               </code>
-              And here is the flag that we wanted to capture. This is the password to log into bandit level 1. (boJ9jbbUNNfktd78OOpsqOltutMc3MY1)
+              And here is the flag that we wanted to capture. This is the password to log into bandit level 2. <span class="blur">(CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9)</span>
             </li>
             <li>
-              And don’t forget to use the login username of bandit1 for the next level.
+              And don’t forget to use the login username of bandit2 for the next level.
             </li>
           </ol>
         </article>
-        <!-- <article class="lessonsLearned">
-          <h2>Lessons Learned/Mistakes Made</h2>
+        <article class="lessonsLearned">
+          <h2>Learned:</h2>
+          <ul>
+            <li>How to open a (-) dash file and the importance of sometimes needing to put the full file path to make sure you are opening the correct file.</li>
+          </ul>
         </article>
         <article class="resources">
           <h2>Resources</h2>
-        </article> -->
+          <ul>
+            <li><a href="https://stackoverflow.com/questions/42187323/how-to-open-a-dashed-filename-using-terminal" target="_blank">https://stackoverflow.com/questions/42187323/how-to-open-a-dashed-filename-using-terminal</a></li>
+          </ul>
+        </article>
     </section>
   </div>
   </main>

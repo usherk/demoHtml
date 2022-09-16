@@ -12,7 +12,7 @@
 #writeup .levelInfo h2:first-child {
   margin-top: 0;
 }
-#writeup .levelInfo li {
+#writeup li {
   margin-left: 1.5em;
 }
 #writeup .commands ul {
@@ -40,6 +40,14 @@
   background-color: black;
   color: #E59700;
   padding: .5em;
+}
+#writeup .blur {
+  text-shadow: 0 0 10px black;
+  color: transparent;
+}
+#writeup code .blur {
+  text-shadow: 0 0 5px #E59700;
+  color: transparent;
 }
 @media screen and (min-width: 768px) {
   #writeup section {
