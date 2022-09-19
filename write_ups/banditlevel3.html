@@ -29,8 +29,8 @@
                 <li><span class="dd-heading">Bandit</span><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="banditlevel0.html">Level 0</a></li>
                 <li><a class="dropdown-item" href="banditlevel1.html">Level 1</a></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel2.html">Level 2</a></li>
-                <li><a class="dropdown-item" href="./banditlevel3.html">Level 3</a></li>
+                <li><a class="dropdown-item" href="./banditlevel2.html">Level 2</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel3.html">Level 3</a></li>
               </ul>
             </li>
           </ul>
@@ -39,7 +39,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 2</h1>
+        <h1>Over the Wire - Bandit Level 3</h1>
       </div>
     </header>
     <main>
@@ -49,14 +49,14 @@
             <h2>Level Information</h2>
             <ul>
               <li>Host Name: bandit.labs.overthewire.org</li>
-              <li>Username: bandit2</li>
-              <li>Password: <span class="blur">rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi</span></li>
+              <li>Username: bandit3</li>
+              <li>Password: <span class="blur">aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG</span></li>
               <li>Port Number: 2220</li>
             </ul>
           </article>
           <article class="levelGoal">
             <h2>Level Goal</h2>
-            <p>The password for the next level is stored in a file called spaces in this filename located in the home directory</p>
+            <p>The password for the next level is stored in a hidden file in the inhere directory.</p>
           </article>
           <article class="commands">
             <h2>Commands you may need to solve this level</h2>
@@ -109,38 +109,37 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Step one would be to locate the home directory. The home directory is usually signified with a &#126;&#36; and is usually the directory you start in when logging into a Linux box. So it appears we are in the home directory.
-            </li>
-            <li>
-              Step two, Now we need to search the directory for a file called ‘spaces in this filename’.  Using the ‘ls’ command we see a list of all the files and folders in the home directory. The ‘ls’ command shows that there is only 1 file and it is the file we are looking for.
+              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the ‘cd’ command (cd inhere).
               <code>
-                bandit2@bandit:&#126;&#36; ls <br />
-                spaces in this filename
+                bandit3@bandit:&#126;&#36; ls <br />
+                inhere
               </code>
             </li>
             <li>
-              Step three, we need to open or read the file. Files with spaces have to be treated a little differently when using them in a command prompt. We need to add “ ” quotation marks around the file name so that the command prompt will know all these characters, including the spaces, belong together.  Lets use cat to read the file, cat “spaces in filename”. And here is the flag that we wanted to capture. This is the password to log into bandit level 3.
+              Step two, Now that we are in the inhere directory we need to search for a hidden file.  Just using ‘ls’ by itself will show hidden files, you must use a flag with the ‘ls’ command to show hidden files. Hidden files by the way are files that start with a . (period) and they sometimes help keep honest people honest by hiding them from view. Now let's use the ‘ls’ command with the ‘-a’ flag (ls -a). The ‘ls’ command shows that there is only 1 file so we must assume that it is the file we are looking for since we don’t know the name of the file we are looking for.
               <code>
-                bandit1@bandit:&#126;&#36; cat "spaces in this filename" <br />
+                bandit3@bandit:&#126;&#36; ls <br />
+                bandit3@bandit:&#126;/inhere&#36; ls -a <br />
+                .  ..  .hidden
+              </code>
+            </li>
+            <li>
+              Step three, we need to open or read the file. Hidden files can be opened like any other file with cat (cat .hidden). And here is the flag that we wanted to capture. This is the password to log into bandit level 4.
+              <code>
+                bandit3@bandit:&#126;/inhere&#36; cat .hidden <br />
                 <span class="blur">aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG</blur>
               </code>
-              And here is the flag that we wanted to capture. This is the password to log into bandit level 2. <span class="blur">(aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG)</span>
+              And here is the flag that we wanted to capture. This is the password to log into bandit level 3. <span class="blur">(pIwrPrtPN36QITSp3EQaw936yaFoFgAB)</span>
             </li>
             <li>
-              And don’t forget to use the login username of bandit2 for the next level.
+              And don’t forget to use the login username of bandit4 for the next level.
             </li>
           </ol>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
-            <li>How to open filenames or folder names that have spaces in the name.</li>
-          </ul>
-        </article>
-        <article class="resources">
-          <h2>Resources</h2>
-          <ul>
-            <li><a href="https://docs.microsoft.com/en-us/troubleshoot/windows-server/deployment/filenames-with-spaces-require-quotation-mark" target="_blank">https://docs.microsoft.com/en-us/troubleshoot/windows-server/deployment/filenames-with-spaces-require-quotation-mark</a></li>
+            <li>Learned about hidden files and how to view them within directories.</li>
           </ul>
         </article>
     </section>
