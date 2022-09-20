@@ -29,9 +29,9 @@
                 <li><span class="dd-heading">Bandit</span><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="banditlevel0.html">Level 0</a></li>
                 <li><a class="dropdown-item" href="banditlevel1.html">Level 1</a></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel2.html">Level 2</a></li>
+                <li><a class="dropdown-item" href="banditlevel2.html">Level 2</a></li>
                 <li><a class="dropdown-item" href="banditlevel3.html">Level 3</a></li>
-                <li><a class="dropdown-item" href="banditlevel4.html">Level 4</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel4.html">Level 4</a></li>
               </ul>
             </li>
           </ul>
@@ -40,7 +40,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 2</h1>
+        <h1>Over the Wire - Bandit Level 4</h1>
       </div>
     </header>
     <main>
@@ -50,14 +50,14 @@
             <h2>Level Information</h2>
             <ul>
               <li>Host Name: bandit.labs.overthewire.org</li>
-              <li>Username: bandit2</li>
-              <li>Password: <span class="blur">rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi</span></li>
+              <li>Username: bandit4</li>
+              <li>Password: <span class="blur">2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe</span></li>
               <li>Port Number: 2220</li>
             </ul>
           </article>
           <article class="levelGoal">
             <h2>Level Goal</h2>
-            <p>The password for the next level is stored in a file called spaces in this filename located in the home directory</p>
+            <p>The password for the next level is stored in the only human-readable file in the inhere directory. Tip: if your terminal is messed up, try the “reset” command.</p>
           </article>
           <article class="commands">
             <h2>Commands you may need to solve this level</h2>
@@ -110,38 +110,84 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Step one would be to locate the home directory. The home directory is usually signified with a &#126;&#36; and is usually the directory you start in when logging into a Linux box. So it appears we are in the home directory.
-            </li>
-            <li>
-              Step two, Now we need to search the directory for a file called ‘spaces in this filename’.  Using the ‘ls’ command we see a list of all the files and folders in the home directory. The ‘ls’ command shows that there is only 1 file and it is the file we are looking for.
+              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the ‘cd’ command (cd inhere).
               <code>
-                bandit2@bandit:&#126;&#36; ls <br />
-                spaces in this filename
+                bandit4@bandit:&#126;&#36; ls <br />
+                inhere
               </code>
             </li>
             <li>
-              Step three, we need to open or read the file. Files with spaces have to be treated a little differently when using them in a command prompt. We need to add “ ” quotation marks around the file name so that the command prompt will know all these characters, including the spaces, belong together.  Lets use cat to read the file, cat “spaces in filename”. And here is the flag that we wanted to capture. This is the password to log into bandit level 3.
+              Step two, Now that we are in the inhere directory we need to search for a human readable file. Now let's use the ‘ls’ command with the ‘-a’ flag (ls -a) just in case there is a hidden file. The ‘ls -a’ command shows that there are 10 files. At this point we want to go through each file one-by-one and find that one that is readable.
               <code>
-                bandit1@bandit:&#126;&#36; cat "spaces in this filename" <br />
-                <span class="blur">aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG</blur>
+                bandit4@bandit:&#126;/inhere&#36; ls -a <br />
+                .   &nbsp;-file00  -file02  -file04  -file06  -file08<br />
+                ..  -file01  -file03  -file05  -file07  -file09
               </code>
-              And here is the flag that we wanted to capture. This is the password to log into bandit level 3. <span class="blur">(aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG)</span>
             </li>
             <li>
-              And don’t forget to use the login username of bandit2 for the next level.
+              Step three, we need to open or read the files, you will notice that there is a dash in front of each file. This is part of the file name, so in order for the command prompt not to be confused and take the dash as an argument you must give the full file path to open the file. Since we are in the directory of the file we simply need to type a ./ in front of the file name to denote that the file is in this directory. So we use the cat command on each file.
+              <code>
+                bandit4@bandit:&#126;/inhere&#36; cat ./-file07 <br />
+                <span class="blur">lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR</blur>
+              </code>
+              And -file07 has the flag that we wanted to capture. This is the password to log into bandit level 5. <span class="blur">(lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR)</span>
+            </li>
+            <li>
+              And don’t forget to use the login username of bandit5 for the next level.
             </li>
           </ol>
+          <h3>Alternate Solutions</h3>
+          <ul>
+            <li>
+              An alternative way to look through the files and find the human readable one is to change the file type by using the file command plus the file name. In this scenario the unreadable files will be of type data and the readable file will be of type ASCII text.
+              <code>
+                bandit4@bandit:&#126;/inhere&#36; file ./-file06 <br />
+                ./-file06: data<br />
+                bandit4@bandit:&#126;/inhere&#36; file ./-file07 <br />
+                ./-file07: ASCII text
+              </code>
+            </li>
+            <li>
+              And with the file command you can use an * for a wildcard to search all the files in a single command call. Don’t forget to put the ./ in front of the asterisk since the files start with a dash (file ./*)
+              <code>
+                bandit4@bandit:&#126;/inhere&#36; file ./* <br />
+                ./-file00: data<br />
+                ./-file01: data<br />
+                ./-file02: data<br />
+                ./-file03: data<br />
+                ./-file04: data<br />
+                ./-file05: data<br />
+                ./-file06: data<br />
+                ./-file07: ASCII text<br />
+                ./-file08: data<br />
+                ./-file09: data<br />
+              </code>
+            </li>
+          </ul>
+        </article>
+        <article class="mistakes">
+          <h2>Mistakes:</h2>
+          <ul>
+            <li>Not really a mistake since I used what I knew the first time through but not researching before hand for a more efficient way of completing the task.</li>
+          </ul>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
-            <li>How to open filenames or folder names that have spaces in the name.</li>
+            <li>Forgot how to open a file that started with a dash so had to google how to do it again.</li>
+            <li>After completing the task the hard way I continued to look up ways to complete it with less commands and came across the * asterisk wildcard for the file command and just search all the file types with a single command.</li>
+          </ul>
+        </article>
+        <article class="notes">
+          <h2>Notes:</h2>
+          <ul>
+            <li>I am sure there is a better way to iterate through files but at this stage and with just a few files it was easy enough to go through each file.</li>
           </ul>
         </article>
         <article class="resources">
           <h2>Resources</h2>
           <ul>
-            <li><a href="https://docs.microsoft.com/en-us/troubleshoot/windows-server/deployment/filenames-with-spaces-require-quotation-mark" target="_blank">https://docs.microsoft.com/en-us/troubleshoot/windows-server/deployment/filenames-with-spaces-require-quotation-mark</a></li>
+            <li><a href="https://askubuntu.com/questions/1028506/how-do-i-display-filetype-with-ls" target="_blank">https://askubuntu.com/questions/1028506/how-do-i-display-filetype-with-ls</a></li>
           </ul>
         </article>
     </section>
