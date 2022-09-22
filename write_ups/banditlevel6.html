@@ -32,8 +32,8 @@
                 <li><a class="dropdown-item" href="banditlevel2.html">Level 2</a></li>
                 <li><a class="dropdown-item" href="banditlevel3.html">Level 3</a></li>
                 <li><a class="dropdown-item" href="banditlevel4.html">Level 4</a></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel5.html">Level 5</a></li>
-                <li><a class="dropdown-item" href="banditlevel6.html">Level 6</a></li>
+                <li><a class="dropdown-item" href="banditlevel5.html">Level 5</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel6.html">Level 6</a></li>
               </ul>
             </li>
           </ul>
@@ -42,7 +42,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 5</h1>
+        <h1>Over the Wire - Bandit Level 6</h1>
       </div>
     </header>
     <main>
@@ -52,19 +52,19 @@
           <h2>Level Information</h2>
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
-            <li>Username: bandit5</li>
-            <li>Password: <span class="blur">lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR</span></li>
+            <li>Username: bandit6</li>
+            <li>Password: <span class="blur">P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU</span></li>
             <li>Port Number: 2220</li>
           </ul>
         </article>
         <article class="levelGoal">
           <h2>Level Goal</h2>
           <p>
-            The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
+            The password for the next level is stored somewhere on the server and has all of the following properties:
             <ul>
-             <li>human-readable</li>
-             <li>1033 bytes in size</li>
-             <li>not executable</li>
+             <li>owned by user bandit7</li>
+             <li>owned by group bandit6</li>
+             <li>33 bytes in size</li>
             </ul>
           </p>
         </article>
@@ -77,6 +77,7 @@
             <li>file,</li>
             <li>du,</li>
             <li>find</li>
+            <li>grep</li>
           </ul>
         <table class="table commandsTable">
           <caption class="smallText">* Not all commands listed will be needed</caption>
@@ -110,6 +111,10 @@
             <td>find</td>
             <td>Search for files in a directory hierarchy</td>
           </tr>
+          <tr>
+            <td>grep</td>
+            <td>Searches the named input FILEs for lines containing a match to the given PATTERN.</td>
+          </tr>
           <tbody>
           </tbody>
         </table>
@@ -119,62 +124,39 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the ‘cd’ command (cd inhere).
-              <code>
-                bandit5@bandit:&#126;&#36; ls <br />
-                inhere
-              </code>
+              Ok, for this challenge we are given a directory or file name to search for so it would be a waste of time to look through directories one at a time. So, let's look through the list of commands that may help solve this puzzle. Looking... Yes, the find command appears to be the perfect command for this job.
             </li>
             <li>
-              Let’s take a peak in the inhere file to see what we are working with. Use the ls -a in case there are some hidden files.
+              Once we figure out an incantation that we want to try with the find command let's plug it in and see what it returns. Find / -type f -user bandit7 -group bandit6 -size 33c 2> /dev/null. -type f is for file, -user is searching for a file that belongs to this user, -group is searching for a file that belongs to the given group then 2> /dev/null is redirecting STDERR to a non existing file so the pesky ‘Permission Denied’ messages don’t appear.
               <code>
-                bandit5@bandit:&#126;/inhere&#36; ls -a <br />
-                maybehere00  maybehere04  maybehere08  maybehere12  maybehere16<br />
-                maybehere01  maybehere05  maybehere09  maybehere13  maybehere17<br />
-                maybehere02  maybehere06  maybehere10  maybehere14  maybehere18<br />
-                maybehere03  maybehere07  maybehere11  maybehere15  maybehere19
+                bandit6@bandit:&#126;&#36; find / -type f -user bandit7 -group bandit6 -size 33c 2> /dev/null <br />
+                /var/lib/dpkg/info/bandit7.password
               </code>
-            </li>
-            <li>
-              Now that we are in the inhere directory we need to search for a human readable file, that is 1033 bytes in size, and is not an executable file. Looking through the list of recommended commands I think the ‘find’ command would be the best one to use here since its purpose is to search for files in a directory hierarchy. Let’s look through the list of flags to find which ones fit the criteria of the file. After searching the man pages for find we will use -type f because we are looking for a file. -size 1033c to look for a file that is 1033 in bytes, the c signifies bytes. ! -executable, the ! stands not than -executable, so we are saying not executable. The full command would be find ./ -type f -size 1033c ! -executable.
-            </li>
-            <li>
-              So let's run our find command and see if anything is found.
-              <code>
-                bandit5@bandit:&#126;/inhere&#36; ind ./ -type f -size 1033c ! -executable <br />
-                ./maybehere07/.file2
-              </code>
-              Score! A single file appears, and it is a hidden file in the maybehere07 directory.
             </li>
             <li>
               Now we will read the file with cat.
               <code>
-                bandit5@bandit:~/inhere$ cat maybehere07/.file2<br />
-                <span class="blur">P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU</blur>
+                bandit6@bandit:&#126;&#36; cat /var/lib/dpkg/info/bandit7.password<br />
+                <span class="blur">z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</blur>
               </code>
-              And there is the password for the next level <span class="blur">(P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU)</span>.
+              And there is the password for the next level <span class="blur">(z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S)</span>.
             </li>
             <li>
-              And don’t forget to use the login username of bandit6 for the next level.
+              And don’t forget to use the login username of bandit7 for the next level.
             </li>
           </ol>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
-            <li>How to search for a non-executable file.</li>
-          </ul>
-        </article>
-        <article class="notes">
-          <h2>Notes:</h2>
-          <ul>
-            <li>It took about 10 - 15 minutes to google how to search for a non-executable file but I am glad I stuck with it and learned more about the find command.</li>
+            <li>How to search a file for a user and group.</li>
+            <li>How to send STDERR to a null file so you don’t have to deal with seeing the errors.</li>
           </ul>
         </article>
         <article class="resources">
           <h2>Resources</h2>
           <ul>
-            <li><a href="https://stackoverflow.com/questions/70539901/how-can-i-find-all-non-executable-files-in-a-directory-in-linux " target="_blank">https://stackoverflow.com/questions/70539901/how-can-i-find-all-non-executable-files-in-a-directory-in-linux </a></li>
+            <li><a href="https://www.cyberciti.biz/faq/bash-find-exclude-all-permission-denied-messages/" target="_blank">https://www.cyberciti.biz/faq/bash-find-exclude-all-permission-denied-messages/</a></li>
           </ul>
         </article>
     </section>
