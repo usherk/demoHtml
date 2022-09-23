@@ -33,8 +33,8 @@
                 <li><a class="dropdown-item" href="banditlevel3.html">Level 3</a></li>
                 <li><a class="dropdown-item" href="banditlevel4.html">Level 4</a></li>
                 <li><a class="dropdown-item" href="banditlevel5.html">Level 5</a></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel6.html">Level 6</a></li>
-                <li><a class="dropdown-item" href="banditlevel7.html">Level 7</a></li>
+                <li><a class="dropdown-item" href="banditlevel6.html">Level 6</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel7.html">Level 7</a></li>
               </ul>
             </li>
           </ul>
@@ -43,7 +43,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 6</h1>
+        <h1>Over the Wire - Bandit Level 7</h1>
       </div>
     </header>
     <main>
@@ -53,32 +53,30 @@
           <h2>Level Information</h2>
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
-            <li>Username: bandit6</li>
-            <li>Password: <span class="blur">P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU</span></li>
+            <li>Username: bandit7</li>
+            <li>Password: <span class="blur">z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</span></li>
             <li>Port Number: 2220</li>
           </ul>
         </article>
         <article class="levelGoal">
           <h2>Level Goal</h2>
           <p>
-            The password for the next level is stored somewhere on the server and has all of the following properties:
-            <ul>
-             <li>owned by user bandit7</li>
-             <li>owned by group bandit6</li>
-             <li>33 bytes in size</li>
-            </ul>
+            The password for the next level is stored in the file data.txt next to the word millionth.
           </p>
         </article>
         <article class="commands">
           <h2>Commands you may need to solve this level</h2>
           <ul class="commandList">
-            <li>ls,</li>
-            <li>cd,</li>
-            <li>cat,</li>
-            <li>file,</li>
-            <li>du,</li>
-            <li>find,</li>
-            <li>grep</li>
+            <li>grep,</li>
+            <li>sort,</li>
+            <li>uniq,</li>
+            <li>strings,</li>
+            <li>base64,</li>
+            <li>tr,</li>
+            <li>tar,</li>
+            <li>gzip,</li>
+            <li>bzip2,</li>
+            <li>xxd</li>
           </ul>
         <table class="table commandsTable">
           <caption class="smallText">* Not all commands listed will be needed</caption>
@@ -89,32 +87,44 @@
             </tr>
           </thead>
           <tr>
-            <td>ls</td>
-            <td>List directory contents</td>
-          </tr>
-          <tr>
-            <td>cd</td>
-            <td>Change the working directory</td>
-          </tr>
-          <tr>
-            <td>cat</td>
-            <td>Concatenate files and print on the standard output</td>
-          </tr>
-          <tr>
-            <td>file</td>
-            <td>Determine file type</td>
-          </tr>
-          <tr>
-            <td>du</td>
-            <td>Estimate file space usage</td>
-          </tr>
-          <tr>
-            <td>find</td>
-            <td>Search for files in a directory hierarchy</td>
-          </tr>
-          <tr>
             <td>grep</td>
-            <td>Searches the named input FILEs for lines containing a match to the given PATTERN.</td>
+            <td>Print lines matching a pattern</td>
+          </tr>
+          <tr>
+            <td>sort</td>
+            <td>Sort lines of text files</td>
+          </tr>
+          <tr>
+            <td>uniq</td>
+            <td>Report or omit repeated lines</td>
+          </tr>
+          <tr>
+            <td>strings</td>
+            <td>Print the strings of printable characters in files</td>
+          </tr>
+          <tr>
+            <td>base64</td>
+            <td>base64 encode/decode data and print to standard output</td>
+          </tr>
+          <tr>
+            <td>tr</td>
+            <td>translate or delete characters</td>
+          </tr>
+          <tr>
+            <td>tar</td>
+            <td>The GNU version of the tar archiving utility</td>
+          </tr>
+          <tr>
+            <td>gzip</td>
+            <td>compress or expand files</td>
+          </tr>
+          <tr>
+            <td>bzip2</td>
+            <td>a block-sorting file compressor, v1.0.6</td>
+          </tr>
+          <tr>
+            <td>xxd</td>
+            <td>make a hexdump or do the reverse</td>
           </tr>
           <tbody>
           </tbody>
@@ -125,41 +135,61 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Ok, for this challenge we are given a directory or file name to search for so it would be a waste of time to look through directories one at a time. So, let's look through the list of commands that may help solve this puzzle. Looking... Yes, the find command appears to be the perfect command for this job.
+              Step one would be to locate the data.txt file. Run the ls command to pull the list of files and folders.
+              <code>
+                bandit7@bandit:&#126;&#36; ls <br />
+                data.txt
+              </code>
+              And here is the file in the home directory.
             </li>
             <li>
-              Once we figure out an incantation that we want to try with the find command let's plug it in and see what it returns. Find / -type f -user bandit7 -group bandit6 -size 33c 2> /dev/null. -type f is for file, -user is searching for a file that belongs to this user, -group is searching for a file that belongs to the given group then 2> /dev/null is redirecting STDERR to a non existing file so the pesky ‘Permission Denied’ messages don’t appear.
+              Now we want to search the file for the word "millionth". We could just use cat and read the file but I would advise against that. This is a large file and takes cat a while to open. If you want to look in the file I would suggest using a command like less so you can tab through the file and quit looking whenever you want.
               <code>
-                bandit6@bandit:&#126;&#36; find / -type f -user bandit7 -group bandit6 -size 33c 2> /dev/null <br />
-                /var/lib/dpkg/info/bandit7.password
+                bandit7@bandit:&#126;&#36; less data.txt <br />
+                Weddell's       o8S2mUyOlnSJvej8IIC3Jd8qBM7jLYeL <br />
+                sucks   SVP9VgB4uSJKMejmdRC2u20NI4tLC9JH <br />
+                genders 11EjE7xEF0vjvMOXDFpUucGXgU706iKX <br />
+                vagrants        h7Wb2ZHWx9TtGLsJIQn5IyH2A3CkcZFc <br />
+                shrewed oEl7VCrKajDdbXvJrW9IVUlk2KA0GPZs <br />
+                imbecile's      P7nHwuVBUWnFTXPvSpjWFlimJASMOUNa <br />
+                reexamining     VQbmDcurUPB9koHHeCRugBvBpMpM6V0c <br />
+                emailed 85cYMCVUneJDwT5prLClMlKT1rhqKZgj <br />
+                barometers      3wKwiJ7YhZdpjypRO9kfQNmJjp66to8d <br />
+                :
               </code>
             </li>
             <li>
-              Now we will read the file with cat.
+              Looking through the list of commands that we may need to solve the level, grep is the best option for the task.
+              Using the grep command, search for the word “millionth” in the data.txt file. Grep by default returns the full line that the text was found in. So searching for this word should return the password also.
               <code>
-                bandit6@bandit:&#126;&#36; cat /var/lib/dpkg/info/bandit7.password<br />
-                <span class="blur">z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</span>
+                bandit7@bandit:&#126;&#36; grep 'millionth' data.txt<br />
+                millionth       <span class="blur">TESKZC0XvTetK0S9xNwm25STk5iWrBvP</span>
               </code>
-              And there is the password for the next level <span class="blur">(z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S)</span>.
+              And there is the password for the next level <span class="blur">(TESKZC0XvTetK0S9xNwm25STk5iWrBvP)</span>.
             </li>
             <li>
-              And don’t forget to use the login username of bandit7 for the next level.
+              And don’t forget to use the login username of bandit8 for the next level.
             </li>
           </ol>
+        </article>
+        <article class="mistakes">
+          <h2>Mistakes:</h2>
+          <ul>
+            <li>Reading the file first with cat. This was a large file and took a while to finish loading.</li>
+          </ul>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
-            <li>How to search a file for a user and group.</li>
-            <li>How to send STDERR to a null file so you don’t have to deal with seeing the errors.</li>
+            <li>When opening files that may be large you should probably use the head, tail, or less command.</li>
           </ul>
         </article>
-        <article class="resources">
+        <!-- <article class="resources">
           <h2>Resources</h2>
           <ul>
             <li><a href="https://www.cyberciti.biz/faq/bash-find-exclude-all-permission-denied-messages/" target="_blank">https://www.cyberciti.biz/faq/bash-find-exclude-all-permission-denied-messages/</a></li>
           </ul>
-        </article>
+        </article> -->
     </section>
   </div>
   </main>
