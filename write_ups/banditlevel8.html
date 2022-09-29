@@ -34,8 +34,8 @@
                 <li><a class="dropdown-item" href="banditlevel4.html">Level 4</a></li>
                 <li><a class="dropdown-item" href="banditlevel5.html">Level 5</a></li>
                 <li><a class="dropdown-item" href="banditlevel6.html">Level 6</a></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel7.html">Level 7</a></li>
-                <li><a class="dropdown-item" href="banditlevel8.html">Level 8</a></li>
+                <li><a class="dropdown-item" href="banditlevel7.html">Level 7</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel8.html">Level 8</a></li>
               </ul>
             </li>
           </ul>
@@ -44,7 +44,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 7</h1>
+        <h1>Over the Wire - Bandit Level 8</h1>
       </div>
     </header>
     <main>
@@ -54,15 +54,15 @@
           <h2>Level Information</h2>
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
-            <li>Username: bandit7</li>
-            <li>Password: <span class="blur">z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</span></li>
+            <li>Username: bandit8</li>
+            <li>Password: <span class="blur">TESKZC0XvTetK0S9xNwm25STk5iWrBvP</span></li>
             <li>Port Number: 2220</li>
           </ul>
         </article>
         <article class="levelGoal">
           <h2>Level Goal</h2>
           <p>
-            The password for the next level is stored in the file data.txt next to the word millionth.
+            The password for the next level is stored in the file data.txt and is the only line of text that occurs only once.
           </p>
         </article>
         <article class="commands">
@@ -138,51 +138,66 @@
             <li>
               Step one would be to locate the data.txt file. Run the ls command to pull the list of files and folders.
               <code>
-                bandit7@bandit:&#126;&#36; ls <br />
+                bandit8@bandit:&#126;&#36; ls <br />
                 data.txt
               </code>
               And here is the file in the home directory.
             </li>
             <li>
-              Now we want to search the file for the word "millionth". We could just use cat and read the file but I would advise against that. This is a large file and takes cat a while to open. If you want to look in the file I would suggest using a command like less so you can tab through the file and quit looking whenever you want.
-              <code>
-                bandit7@bandit:&#126;&#36; less data.txt <br />
-                Weddell's       o8S2mUyOlnSJvej8IIC3Jd8qBM7jLYeL <br />
-                sucks   SVP9VgB4uSJKMejmdRC2u20NI4tLC9JH <br />
-                genders 11EjE7xEF0vjvMOXDFpUucGXgU706iKX <br />
-                vagrants        h7Wb2ZHWx9TtGLsJIQn5IyH2A3CkcZFc <br />
-                shrewed oEl7VCrKajDdbXvJrW9IVUlk2KA0GPZs <br />
-                imbecile's      P7nHwuVBUWnFTXPvSpjWFlimJASMOUNa <br />
-                reexamining     VQbmDcurUPB9koHHeCRugBvBpMpM6V0c <br />
-                emailed 85cYMCVUneJDwT5prLClMlKT1rhqKZgj <br />
-                barometers      3wKwiJ7YhZdpjypRO9kfQNmJjp66to8d <br />
-                :
-              </code>
+              Now we want to search the file for the only line of text that occurs only once. So, let's look through our list of commands... Uniq seems to be exactly what we need for this task. If we run 'uniq data.txt' we will notice that the same thing is returned as if we used cat to read the file. To figure this out lets look at the man pages. Under the description for uniq it says "Filter <b><u>adjacent</u></b> matching lines from INPUT, writing to OUTPUT." The key word here is adjacent. The duplicate lines must be next to each other in order for uniq to catch it.
             </li>
             <li>
-              Looking through the list of commands that we may need to solve the level, grep is the best option for the task.
-              Using the grep command, search for the word “millionth” in the data.txt file. Grep by default returns the full line that the text was found in. So searching for this word should return the password also.
+              So, looking through the list of commands again we see the sort command. We probably need to sort the file first before using the uniq command. If you ran each command one step at a time you can see the progression of running these commands on the file. Just running "sort data.txt" you can see that it groups everything together in alphabetical order.
               <code>
-                bandit7@bandit:&#126;&#36; grep 'millionth' data.txt<br />
-                millionth       <span class="blur">TESKZC0XvTetK0S9xNwm25STk5iWrBvP</span>
+                bandit8@bandit:&#126;&#36; sort data.txt <br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI
               </code>
-              And there is the password for the next level <span class="blur">(TESKZC0XvTetK0S9xNwm25STk5iWrBvP)</span>.
+              Next let's pipe the output of sort to uniq "sort data.txt | uniq". Here we can see that all the groupings are gone.
+              <code>
+                bandit8@bandit:&#126;&#36; sort data.txt | uniq <br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI<br />
+                0V6GeVMoo5JJLhXGq0kEYSEXz1F4RD31<br />
+                1aj22eYarp5vixqBvRUbsOhBtkdI2yoQ<br />
+                1wfF9tInmCoPs0YXZiCKbPZJSPn1sEaC<br />
+                3emkK8imP2xGVGmsyk3pBV3iGN95QWUJ<br />
+                4GLsgBdz0b1JA8cR5vH9CiX1jCAT3TF1<br />
+                4nl1vgXcs3wdgdbQjbh6JF4kR2vNUVOK<br />
+                5jR7RYLuNfGBG86ek0hNFPyVH0jT5alz<br />
+                67t9oP2hokb2EwnpyVZ9JfX4iPuqFhwN<br />
+                68qUzJZLuOIw5a6iPi2CVsxlP6l0wgaS<br />
+                6hXvdZamDJFnfKX8O8UZPVjZpjeqeq6M<br />
+                7HNLPWyymsBFNjZJVPRro4zPh2p1imsN
+              </code>
+              Uniq by default will merge matching lines, so there is still a good list of potential passwords. Remember that we are looking for the only uniq line. Back in the man pages we can see that uniq has a flag that will only print unique lines. Now let's rerun the previous command with the -u flag for uniq.
+              <code>
+                bandit8@bandit:&#126;&#36; sort data.txt | uniq -u <br />
+                <span class="blur">EN632PlfYiZbn3PhVK3XOGSlNInNE00t</span>
+              </code>
+              And there is the password for the next level <span class="blur">(EN632PlfYiZbn3PhVK3XOGSlNInNE00t)</span>.
             </li>
             <li>
-              And don’t forget to use the login username of bandit8 for the next level.
+              And don’t forget to use the login username of bandit9 for the next level.
             </li>
           </ol>
-        </article>
-        <article class="mistakes">
-          <h2>Mistakes:</h2>
-          <ul>
-            <li>Reading the file first with cat. This was a large file and took a while to finish loading.</li>
-          </ul>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
-            <li>When opening files that may be large you should probably use the head, tail, or less command.</li>
+            <li>That sorting your lines before applying some commands can help with the results.</li>
+            <li>How to use the uniq command.</li>
           </ul>
         </article>
         <!-- <article class="resources">
